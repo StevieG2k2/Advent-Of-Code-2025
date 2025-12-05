@@ -1,4 +1,5 @@
 rolls = 0
+removed = 0
 
 plan=["..@..@..@..@..@@..@@@@@@.@.@@@@.@.@@@..@.@@@.@@@.@@@.@@@.@.@.@@..@@@@@@@@@@.@@@..@@.@@@@..@@.@.@@..@@@@@@@@...@.@@.@@.@@@@.@@.@@......@@.@@",
 "@@@@@@@@@@@..@.@@@@.@...@@.@@@.@@@@@@@@.@.@@...@@..@@..@@..@.@..@.@.@@..@.@@@@@@@@@@@.@@@@@@.@@.....@@@@..@@.@..@@@@@@@@.@.@.@@@...@@@.@@@@",
@@ -140,26 +141,31 @@ plan=["..@..@..@..@..@@..@@@@@@.@.@@@@.@.@@@..@.@@@.@@@.@@@.@@@.@.@.@@..@@@@@@@@
 "@@.@@.@@@@@@@@.@@.@.@@.@@@@@@@@@@..@.@@@@.@@@@@@@@@@@..@.@.@@@@@@@@@@@@@@@@..@.@@.@.@@.@.@@@@.@@@@..@.@@.@@.@..@@@@.@@@@@..@@...@@@@@@.@@..",
 "@@@...@@.@@@@@@@@.@@@.@@@..@@@@..@@..@@.@..@@@@@..@@.@.@@@.@@@..@@..@@.@@@...@@@@.@@@.@@@@@@.@@.@@.@..@@@@.@@...@@@..@@.@@..@.@@@@.@@@@.@@@"]
 
-for x in range(len(plan)):
-    for y in range(len(plan[x])):
-        if plan[x][y] == '.': continue
-        adj = 0
-        if x > 0 and y > 0 and plan[x-1][y-1] == '@':
-            adj += 1        
-        if x < len(plan)-1 and y > 0 and plan[x+1][y-1] == '@':
-            adj += 1
-        if x > 0 and y < len(plan[x])-1 and plan[x-1][y+1] == '@':
-            adj += 1
-        if x < len(plan)-1 and y < len(plan[x])-1 and plan[x+1][y+1] == '@':
-            adj += 1
-        if x > 0 and plan[x-1][y] == '@':
-            adj += 1 
-        if y > 0 and plan[x][y-1] == '@':
-            adj += 1  
-        if x < len(plan)-1 and plan[x+1][y] == '@':
-            adj += 1
-        if y < len(plan[x])-1 and plan[x][y+1] == '@':
-            adj += 1   
-        if adj < 4:
-            rolls += 1
-print(rolls)
+while 1:
+    removed = rolls
+    for x in range(len(plan)):
+        for y in range(len(plan[x])):
+            if plan[x][y] == '.': continue
+            adj = 0
+            if x > 0 and y > 0 and plan[x-1][y-1] == '@':
+                adj += 1        
+            if x < len(plan)-1 and y > 0 and plan[x+1][y-1] == '@':
+                adj += 1
+            if x > 0 and y < len(plan[x])-1 and plan[x-1][y+1] == '@':
+                adj += 1
+            if x < len(plan)-1 and y < len(plan[x])-1 and plan[x+1][y+1] == '@':
+                adj += 1
+            if x > 0 and plan[x-1][y] == '@':
+                adj += 1 
+            if y > 0 and plan[x][y-1] == '@':
+                adj += 1  
+            if x < len(plan)-1 and plan[x+1][y] == '@':
+                adj += 1
+            if y < len(plan[x])-1 and plan[x][y+1] == '@':
+                adj += 1   
+            if adj < 4:
+                rolls += 1
+                plan[x] = plan[x][:y] +'.'+ plan[x][y+1:]
+    if removed == rolls:
+        break
+print(removed)
